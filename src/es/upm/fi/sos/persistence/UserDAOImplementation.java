@@ -2,12 +2,11 @@ package es.upm.fi.sos.persistence;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
 
 import es.upm.fi.sos.model.User;
 import java.util.ArrayList;
 import java.sql.*;
-@XmlRootElement
+
 public class UserDAOImplementation extends AbstractDAO implements UserDAO {
 	@Override
 	public List<User> findAll() {
@@ -127,5 +126,31 @@ public class UserDAOImplementation extends AbstractDAO implements UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<User> findSomeOfThem(String name) {
+		List<User> entities = new ArrayList<User>();
+		String sqlFindSome = "select * from user where user_name = ? ";
+		try {
+			this.openConnection();
+			PreparedStatement ps = this.getConnection().prepareStatement(sqlFindSome);
+			ps.setString(1, name);
+			ResultSet result = ps.executeQuery(sqlFindSome);
+			while (result.next()) {
+				User entity = new User();
+				entity.setId(result.getInt("user_id"));
+				entity.setName(result.getString("user_name"));
+				entity.setSchool(result.getString("user_school"));
+				entity.setPhoto(result.getString("user_photo"));
+				entities.add(entity);
+			}
+			result.close();
+			ps.close();
+			this.closeConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entities;
 	}
 }

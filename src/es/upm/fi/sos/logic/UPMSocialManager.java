@@ -11,4 +11,5 @@ public interface UPMSocialManager {
 	User 				updateUser(User user);
 	boolean 			userExists(int id);
 	void 				removeUser(User user);
+	List<User> getUsersFiltered(String name);
 }
