@@ -15,8 +15,8 @@ import es.upm.fi.sos.logic.*;
 import es.upm.fi.sos.model.*;
 import javax.ws.rs.GET;//para @GET
 
-@Path("users")
-public class UserResource {
+@Path("users/{param_user_id}/posts")
+public class PostResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
@@ -26,15 +26,15 @@ public class UserResource {
 	
 	/*************************** getUser **************************
 	 URI: 
-	 http://localhost:8080/UPMSOCIAL/v0.1/users/{user_id} 		//
-	 http://localhost:8080/UPMSOCIAL/v0.1/users/1			  	//usuario -> saul
+	 http://localhost:8080/UPMSOCIAL/v0.1/users/{user_id}/posts/{post_id} 		//
+	 http://localhost:8080/UPMSOCIAL/v0.1/users/1/posts/1			  	//usuario -> saul
 	 */
 	
 	@GET
-	@Path("/{param_user_id}")//: \\d+}")//solo dígitos
+	@Path("/{param_post_id}")//: \\d+}")//solo dígitos
 	@Produces({MediaType.APPLICATION_XML})	
 	
-	public String getUser(@PathParam("param_user_id") String userId){
+	public String getPost(@PathParam("param_user_id") String userId){
 		int idUserInt = Integer.parseInt(userId);
 		String xml = null;
 		//Response res = Response.ok(entity, type)
@@ -49,11 +49,15 @@ public class UserResource {
 					"<school>"+usuario.getSchool()+"</school>"+
 					"<photo>"+usuario.getPhoto()+"</photo>"+
 					"</user>";
+					
 		}
 		else{
 					System.out.println("||||||||||>>>>>>>Tenemos un problema");	
 		}
 		return xml;
+		
+		
 	}
 	
 }
+
