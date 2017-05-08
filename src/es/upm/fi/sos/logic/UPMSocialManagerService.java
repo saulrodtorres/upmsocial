@@ -43,8 +43,13 @@ public class UPMSocialManagerService implements UPMSocialManager{
 		userDAO.delete(user);		
 	}
 	public boolean userExists(int id) {
-		User user = userDAO.findByPK(id);
-		return user!=null;	
+		System.out.printf("----1>>>>>>>>>> entra en userExists() y voy a hacer un findByPK() del id = %d*****",id);
+		User usuario = userDAO.findByPK(id);
+		System.out.printf("----2>>>>>>>>>> entra en userExists() y esta a punto de pintarlo*****");
+		String s = usuario.getName();
+		System.out.printf("----3a>>>>>>>>>> user cargado = %s *************************",s);
+
+		return usuario!=null;	
 	}
 	/***OPERACIONES DE POST****************************************************************************************/
 	/***OPERACIONES DE FRIEND**************************************************************************************/
